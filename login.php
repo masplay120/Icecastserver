@@ -2,7 +2,7 @@
 session_start();
 
 $admin_user = "admin";
-$admin_pass = "1234";
+$admin_pass = "you120you120";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if ($_POST["user"] === $admin_user && $_POST["pass"] === $admin_pass) {
