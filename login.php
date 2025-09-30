@@ -2,13 +2,16 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 session_start();
-require_once 'config.php'; // carga $admin_user y $admin_pass_hash
+
+// Leer usuario y hash desde variables de entorno (fly secrets)
+$admin_user = getenv('ADMIN_USER') ?: 'admin';
+$admin_pass_hash = getenv('ADMIN_PASS_HASH') ?: '';
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $user = $_POST["user"] ?? '';
     $pass = $_POST["pass"] ?? '';
 
-    if ($user === $admin_user && password_verify($pass, $admin_pass_hash)) {
+    if ($user === $admin_user && $admin_pass_hash && password_verify($pass, $admin_pass_hash)) {
         $_SESSION["admin"] = true;
         header("Location: panel.php");
         exit;
