@@ -9,9 +9,14 @@
     <admin-user>admin</admin-user>
     <admin-password>hackme</admin-password>
 
-    <!-- Fuente de autenticación por archivo externo -->
-    <source-password-file>/var/www/html/mounts.txt</source-password-file>
-  </authentication>
+    <mount>
+  <mount-name>/microradio1</mount-name>
+  <password>1234</password>
+</mount>
+<mount>
+  <mount-name>/microradio2</mount-name>
+  <password>abcd</password>
+</mount>
 
   <listen-socket>
     <port>8000</port>
