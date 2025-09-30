@@ -1,6 +1,5 @@
 FROM debian:stable-slim
 
-# Instalar Icecast + Apache + PHP
 RUN apt-get update && \
     apt-get install -y icecast2 apache2 php libapache2-mod-php && \
     rm -rf /var/lib/apt/lists/*
@@ -8,10 +7,13 @@ RUN apt-get update && \
 # Copiar config de Icecast
 COPY icecast.xml /etc/icecast2/icecast.xml
 
-# Copiar archivos del panel y frontend
+# Copiar archivos web
 COPY . /var/www/html/
 
-# Exponer puertos
+# Copiar script de arranque
+COPY start.sh /start.sh
+RUN chmod +x /start.sh
+
 EXPOSE 8000 80
 
-CMD service icecast2 start && apache2ctl -D FOREGROUND
+CMD ["/start.sh"]
