@@ -6,7 +6,6 @@ if(!isset($_SESSION["admin"])) {
 }
 
 $archivo = "mounts.json";
-$archivo_txt = "mounts.txt";
 $radios = file_exists($archivo) ? json_decode(file_get_contents($archivo), true) : [];
 
 if($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -17,12 +16,19 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
     $radios[] = ["mount"=>$mount,"source_password"=>$pass];
     file_put_contents($archivo, json_encode($radios, JSON_PRETTY_PRINT));
 
-    // Guardar en mounts.txt para Icecast
-    $txt = "";
+    // Crear icecast.xml dinámicamente
+    $template = file_get_contents("icecast.xml"); // template base
+    $mountsXml = "";
     foreach($radios as $r) {
-        $txt .= $r["mount"].":".$r["source_password"]."\n";
+        $mountsXml .= "<mount>\n<mount-name>{$r['mount']}</mount-name>\n<password>{$r['source_password']}</password>\n</mount>\n";
     }
-    file_put_contents($archivo_txt, $txt);
+    // Insertamos mounts antes del cierre </icecast>
+    $newXml = str_replace("</icecast>", $mountsXml . "</icecast>", $template);
+    file_put_contents("/etc/icecast2/icecast.xml", $newXml);
+
+    // Reiniciar Icecast
+    exec("pkill icecast2");  // mata el proceso actual
+    exec("icecast2 -c /etc/icecast2/icecast.xml -b"); // lo reinicia en background
 
     header("Location: panel.php");
     exit;
