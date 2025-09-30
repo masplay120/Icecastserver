@@ -9,6 +9,13 @@
     <admin-password>hackme</admin-password>
   </authentication>
 
+  <mount>
+  <mount-name>/microradio</mount-name>
+  <password>1234</password>
+</mount>
+</mount>
+
+
   <listen-socket>
     <port>8000</port>
   </listen-socket>
