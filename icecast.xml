@@ -12,9 +12,9 @@
 
   <hostname>icecastserver.fly.dev</hostname>
 
-  <listen-socket>
-    <port>8000</port>
-  </listen-socket>
+ <listen-socket>
+    <port>80</port>
+</listen-socket>
 
   <!-- Mount único para prueba con BUTT -->
   <mount>
