@@ -17,7 +17,7 @@
 
     <hostname>icecastserver.fly.dev</hostname>
     <listen-socket>
-        <port>8000</port>
+        <port>80</port>
     </listen-socket>
 
     <fileserve>1</fileserve>
