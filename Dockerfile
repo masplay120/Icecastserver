@@ -17,3 +17,5 @@ RUN chmod +x /start.sh
 EXPOSE 8000 80
 
 CMD ["/start.sh"]
+
+RUN rm -f /var/www/html/index.html
