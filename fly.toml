@@ -1,13 +1,15 @@
-app = "icecast-panel"
+app = "icecastserver" # cambia por el nombre real de tu app en Fly.io
+
+[build]
 
 [[services]]
-  internal_port = 80
-  protocol = "tcp"
+  internal_port = 8000
+  processes = ["app"]
 
   [[services.ports]]
-    handlers = ["http"]
     port = 80
+    handlers = ["http"]
 
   [[services.ports]]
-    handlers = ["tls", "http"]
     port = 443
+    handlers = ["tls", "http"]
