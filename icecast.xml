@@ -5,22 +5,15 @@
   </limits>
 
   <authentication>
-    <!-- Usuario default admin para monitoreo -->
     <admin-user>admin</admin-user>
     <admin-password>hackme</admin-password>
-
-    <mount>
-  <mount-name>/microradio1</mount-name>
-  <password>1234</password>
-</mount>
-<mount>
-  <mount-name>/microradio2</mount-name>
-  <password>abcd</password>
-</mount>
+  </authentication>
 
   <listen-socket>
     <port>8000</port>
   </listen-socket>
 
   <hostname>icecastserver.fly.dev</hostname>
+
+  <!-- Mounts dinámicos se agregan desde panel -->
 </icecast>
