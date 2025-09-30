@@ -15,10 +15,15 @@
         <admin-password>adminpass</admin-password>
     </authentication>
 
-    <hostname>icecastserver.fly.dev</hostname>
+    <hostname>0.0.0.0</hostname>
     <listen-socket>
-        <port>80</port>
+        <port>8000</port>
     </listen-socket>
 
     <fileserve>1</fileserve>
+
+    <mount>
+        <mount-name>/stream</mount-name>
+        <public>1</public>
+    </mount>
 </icecast>
