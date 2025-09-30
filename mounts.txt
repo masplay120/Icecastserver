@@ -1,0 +1,2 @@
+/microradio1:1234
+/microradio2:abcd
