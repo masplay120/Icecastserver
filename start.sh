@@ -1,6 +1,7 @@
 #!/bin/bash
-# Arrancar icecast en background
+# Iniciar Icecast en segundo plano
 icecast2 -c /etc/icecast2/icecast.xml -n &
 
-# Arrancar apache en foreground
+# Iniciar Apache en primer plano
 apache2ctl -D FOREGROUND
+
