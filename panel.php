@@ -1,52 +1,49 @@
 <?php
 session_start();
-if (!isset($_SESSION["admin"])) {
+if(!isset($_SESSION["admin"])) {
     header("Location: login.php");
     exit;
 }
 
-$archivo = "datos.json";
+$archivo = "mounts.json";
+$archivo_txt = "mounts.txt";
 $radios = file_exists($archivo) ? json_decode(file_get_contents($archivo), true) : [];
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $nuevaRadio = [
-        "nombre" => $_POST["nombre"],
-        "url" => $_POST["url"],
-        "logo" => $_POST["logo"],
-        "descripcion" => $_POST["descripcion"]
-    ];
-    $radios[] = $nuevaRadio;
+if($_SERVER["REQUEST_METHOD"] === "POST") {
+    $mount = $_POST["mount"];
+    $pass = $_POST["source_password"];
+
+    // Guardar en JSON
+    $radios[] = ["mount"=>$mount,"source_password"=>$pass];
     file_put_contents($archivo, json_encode($radios, JSON_PRETTY_PRINT));
+
+    // Guardar en mounts.txt para Icecast
+    $txt = "";
+    foreach($radios as $r) {
+        $txt .= $r["mount"].":".$r["source_password"]."\n";
+    }
+    file_put_contents($archivo_txt, $txt);
+
     header("Location: panel.php");
     exit;
 }
 ?>
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <title>Panel Admin</title>
-  <link rel="stylesheet" href="style.css">
-</head>
+<head><meta charset="utf-8"><title>Panel Admin Radios</title></head>
 <body>
-  <h1>Panel de Radios</h1>
-  <a href="logout.php">Cerrar sesión</a>
-  <form method="POST">
-    <input type="text" name="nombre" placeholder="Nombre de la radio" required><br>
-    <input type="text" name="url" placeholder="URL de streaming" required><br>
-    <input type="text" name="logo" placeholder="URL del logo"><br>
-    <textarea name="descripcion" placeholder="Descripción"></textarea><br>
-    <button type="submit">Guardar</button>
-  </form>
+<h1>Crear nueva radio</h1>
+<form method="POST">
+<input type="text" name="mount" placeholder="Nombre del mount (/microradio)" required><br>
+<input type="text" name="source_password" placeholder="Contraseña de transmisión" required><br>
+<button type="submit">Crear Radio</button>
+</form>
 
-  <h2>Radios actuales</h2>
-  <ul>
-    <?php foreach ($radios as $radio): ?>
-      <li>
-        <img src="<?= $radio['logo'] ?>" width="50">
-        <strong><?= $radio['nombre'] ?></strong> - <?= $radio['url'] ?>
-      </li>
-    <?php endforeach; ?>
-  </ul>
+<h2>Radios existentes</h2>
+<ul>
+<?php foreach($radios as $r): ?>
+<li><?=htmlspecialchars($r['mount'])?> - <?=htmlspecialchars($r['source_password'])?></li>
+<?php endforeach; ?>
+</ul>
 </body>
 </html>
