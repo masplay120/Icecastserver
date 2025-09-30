@@ -3,6 +3,8 @@ FROM debian:stable-slim
 RUN apt-get update && \
     apt-get install -y icecast2 apache2 php libapache2-mod-php && \
     rm -rf /var/lib/apt/lists/*
+    RUN a2enmod php7.4 || a2enmod php8.2 || true
+
 
 # Copiar config de Icecast
 COPY icecast.xml /etc/icecast2/icecast.xml
