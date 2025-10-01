@@ -1,8 +1,8 @@
 FROM debian:bullseye-slim
 
-# Instalar Icecast2
+# Instalar Icecast2 y limpiar cache
 RUN apt-get update && \
-    apt-get install -y icecast2 && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y icecast2 && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Copiar configuración
