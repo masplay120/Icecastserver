@@ -8,7 +8,7 @@ RUN apt-get update && \
 # Copiar configuración
 COPY icecast.xml /etc/icecast2/icecast.xml
 
-# Exponer puerto interno
+# Exponer puerto 8000
 EXPOSE 8000
 
 # Ejecutar Icecast
