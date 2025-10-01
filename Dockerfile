@@ -8,6 +8,9 @@ RUN apt-get update && \
 # Crear usuario icecast
 RUN addgroup --system icecast && adduser --system --ingroup icecast icecast
 
+# Crear carpeta de logs
+RUN mkdir -p /usr/local/icecast/logs && chown -R icecast:icecast /usr/local/icecast
+
 # Copiar configuración
 COPY icecast.xml /etc/icecast2/icecast.xml
 
