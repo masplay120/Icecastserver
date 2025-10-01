@@ -13,14 +13,9 @@ RUN mkdir -p /usr/local/icecast/logs && chown -R icecast:icecast /usr/local/icec
 
 # Copiar configuración
 COPY icecast.xml /etc/icecast2/icecast.xml
-
-# Cambiar propietario de la configuración
 RUN chown -R icecast:icecast /etc/icecast2
 
-# Exponer puerto interno
 EXPOSE 8000
 
-# Ejecutar Icecast como usuario icecast
 USER icecast
-
 CMD ["icecast2", "-c", "/etc/icecast2/icecast.xml", "-n"]
