@@ -23,6 +23,13 @@
 
     <fileserve>1</fileserve>
 
+    <logging>
+        <accesslog>/usr/local/icecast/logs/access.log</accesslog>
+        <errorlog>/usr/local/icecast/logs/error.log</errorlog>
+        <loglevel>3</loglevel>
+        <logsize>10000</logsize>
+    </logging>
+
     <mount>
         <mount-name>/stream</mount-name>
         <public>1</public>
